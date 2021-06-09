@@ -21,5 +21,15 @@ class Post extends Model
         'active',
         'image',
         'user_id',
-    ]
+    ];
+
+    /**
+     * user relation
+     *
+     * @return void
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
