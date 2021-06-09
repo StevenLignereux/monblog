@@ -52,4 +52,27 @@ class Post extends Model
     {
         return $this->BelongsToMany(Tag::class);
     }
+
+    /**
+     * comments relation
+     *
+     * @return void
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * validComments relation
+     *
+     * @return void
+     */
+    public function validComments()
+    {
+        return $this->whereHas('user', function ($query)
+        {
+            $query->whereValid(true);
+        });
+    }
 }
