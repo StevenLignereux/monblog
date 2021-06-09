@@ -14,4 +14,14 @@ class Category extends Model
 
     public $timestamps = false;
 
+    /**
+     * relation
+     *
+     * @return void
+     */
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class);
+    }
+
 }
