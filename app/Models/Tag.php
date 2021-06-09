@@ -13,4 +13,14 @@ class Tag extends Model
     protected $fillable = ['tag'];
 
     public $timestamps = false;
+
+    /**
+     * posts relation
+     *
+     * @return void
+     */
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class);
+    }
 }
