@@ -17,22 +17,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::withoutEvents(function ()
-        {
-            // create 1 admin
+        User::withoutEvents(function () {
+            // Create 1 admin
             User::factory()->create([
-                'role' => 'admin'
+                'role' => 'admin',
             ]);
-
-            // create 2 redactors
+            // Create 2 redactors
             User::factory()->count(2)->create([
-                'role' => 'redac'
+                'role' => 'redac',
             ]);
-
-            // create 3 users
+            // Create 3 users
             User::factory()->count(3)->create();
         });
-
         $nbrUsers = 6;
 
         DB::table('categories')->insert([
@@ -49,32 +45,28 @@ class DatabaseSeeder extends Seeder
                 'slug' => 'category-3'
             ],
         ]);
-
         $nbrCategories = 3;
 
         DB::table('tags')->insert([
-            ['tag' => 'tag1', 'slug' => 'tag1'],
-            ['tag' => 'tag2', 'slug' => 'tag2'],
-            ['tag' => 'tag3', 'slug' => 'tag3'],
-            ['tag' => 'tag4', 'slug' => 'tag4'],
-            ['tag' => 'tag5', 'slug' => 'tag5'],
-            ['tag' => 'tag6', 'slug' => 'tag6'],
+            ['tag' => 'Tag1', 'slug' => 'tag1'],
+            ['tag' => 'Tag2', 'slug' => 'tag2'],
+            ['tag' => 'Tag3', 'slug' => 'tag3'],
+            ['tag' => 'Tag4', 'slug' => 'tag4'],
+            ['tag' => 'Tag5', 'slug' => 'tag5'],
+            ['tag' => 'Tag6', 'slug' => 'tag6']
         ]);
-
         $nbrTags = 6;
 
-        Post::withoutEvents(function ()
-        {
-            foreach (range(1, 2) as $i){
+        Post::withoutEvents(function () {
+            foreach (range(1, 2) as $i) {
                 Post::factory()->create([
                     'title' => 'Post ' . $i,
                     'slug' => 'post-' . $i,
-                    'seo_title' => 'Post ' .$i,
+                    'seo_title' => 'Post ' . $i,
                     'user_id' => 2,
                     'image' => 'img0' . $i . '.jpg',
                 ]);
             }
-
             foreach (range(3, 9) as $i) {
                 Post::factory()->create([
                     'title' => 'Post ' . $i,
@@ -85,7 +77,6 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         });
-
         $nbrPosts = 9;
 
         // Tags attachment
@@ -103,7 +94,6 @@ class DatabaseSeeder extends Seeder
                 $post->tags()->attach($numbers[$i]);
             }
         }
-
         // Set categories
         foreach ($posts as $post) {
             if ($post->id === 9) {
@@ -207,6 +197,5 @@ class DatabaseSeeder extends Seeder
                 ],
             ],
         ]);
-
     }
 }
