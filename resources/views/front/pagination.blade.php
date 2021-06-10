@@ -9,12 +9,15 @@
                     <a href="{{ $paginator->previousPageUrl() }}" class="pgn__prev" rel="prev">@lang('Prev')</a>
                 @endif
             </li>
+
             {{-- Pagination Elements --}}
             @foreach ($elements as $element)
+
                 {{-- "Three Dots" Separator --}}
                 @if (is_string($element))
                     <li><span class="pgn__num current">{{ $element }}</span></li>
                 @endif
+
                 {{-- Array Of Links --}}
                 @if (is_array($element))
                     @foreach ($element as $page => $url)
@@ -27,7 +30,9 @@
                         </li>
                     @endforeach
                 @endif
+
             @endforeach
+
             {{-- Next Page Link --}}
             <li>
                 @if ($paginator->hasMorePages())
