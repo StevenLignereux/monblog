@@ -2,13 +2,18 @@
 
 @section('hero')
 
- @isset($heros)
+    @isset($heros)
+
         <section id="hero" class="s-hero">
+
           <div class="s-hero__slider">
+
               @foreach($heros as $hero)
                   <x-front.hero :post="$hero" />
               @endforeach
+
           </div>
+
           <div class="s-hero__social hide-on-mobile-small">
               <p>@lang('Follow')</p>
               <span></span>
@@ -19,6 +24,7 @@
                   <li><a href="#0"><i class="fab fa-dribbble" aria-hidden="true"></i></a></li>
               </ul>
           </div>
+
           <div class="nav-arrows s-hero__nav-arrows">
               <button class="s-hero__arrow-prev">
                   <svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg" width="15" height="15"><path d="M1.5 7.5l4-4m-4 4l4 4m-4-4H14" stroke="currentColor"></path></svg>
@@ -27,7 +33,9 @@
                 <svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg" width="15" height="15"><path d="M13.5 7.5l-4-4m4 4l-4 4m4-4H1" stroke="currentColor"></path></svg>
               </button>
           </div>
+
         </section>
+
     @endisset
 
 @endsection
@@ -41,25 +49,36 @@
             </div>
         </div>
     @endisset
+
     <div class="s-bricks">
+
       <div class="masonry">
           <div class="bricks-wrapper h-group">
+
               <div class="grid-sizer"></div>
+
               <div class="lines">
                   <span></span>
                   <span></span>
                   <span></span>
               </div>
+
               @foreach($posts as $post)
+
                   <x-front.brick :post="$post" />
+
               @endforeach
+
             </div>
+
       </div>
+
       <div class="row">
           <div class="column large-12">
-              {{-- On va devoir s'occuper de la pagination ici --}}
+              {{ $posts->links('front.pagination') }}
           </div>
       </div>
+
   </div>
 
 @endsection
