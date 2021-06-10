@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Front\PostController as FrontPostController;
 use Illuminate\Support\Facades\Route;
+use UniSharp\LaravelFilemanager\Lfm;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,13 +14,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+/**
+ * Home
+ */
+Route::name('home')->get('/', [FrontPostController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => 'auth'], function ()
+{
+    Lfm::routes();
+});
 
 require __DIR__.'/auth.php';
