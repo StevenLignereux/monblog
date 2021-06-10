@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Front\PostController as FrontPostController;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
@@ -13,10 +14,10 @@ use UniSharp\LaravelFilemanager\Lfm;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+/**
+ * Home
+ */
+Route::name('home')->get('/', [FrontPostController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
