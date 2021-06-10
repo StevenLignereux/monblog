@@ -70,8 +70,7 @@ class Post extends Model
      */
     public function validComments()
     {
-        return $this->whereHas('user', function ($query)
-        {
+        return $this->comments()->whereHas('user', function ($query) {
             $query->whereValid(true);
         });
     }
