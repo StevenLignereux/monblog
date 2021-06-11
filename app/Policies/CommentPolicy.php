@@ -10,6 +10,11 @@ class CommentPolicy
 {
     use HandlesAuthorization;
 
+    protected function manage(User $user, Comment $comment)
+    {
+        return $user->isAdmin() ?: $user->id === $comment->post->user_id || $user->id === $comment->user_id;
+    }
+
     /**
      * Determine whether the user can view any models.
      *
@@ -18,7 +23,7 @@ class CommentPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -30,18 +35,8 @@ class CommentPolicy
      */
     public function view(User $user, Comment $comment)
     {
-        //
-    }
+        return true;
 
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
-     */
-    public function create(User $user)
-    {
-        //
     }
 
     /**
@@ -53,7 +48,7 @@ class CommentPolicy
      */
     public function update(User $user, Comment $comment)
     {
-        //
+        return $this->manage($user, $comment);
     }
 
     /**
@@ -65,7 +60,8 @@ class CommentPolicy
      */
     public function delete(User $user, Comment $comment)
     {
-        //
+        return $this->manage($user, $comment);
+        
     }
 
     /**

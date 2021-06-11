@@ -23,6 +23,8 @@ Route::prefix('posts')->group(function () {
 
 });
 
+Route::name('front.comments.destroy')->delete('comments/{comment}', [FrontCommentController::class, 'destroy'])
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
