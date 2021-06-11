@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 use App\Http\Controllers\Front\PostController as FrontPostController;
+use App\Http\Controllers\Front\CommentController as FrontCommentController;
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => 'auth'], function () {
     Lfm::routes();
@@ -17,10 +18,16 @@ Route::name('tag')->get('tag/{tag:slug}', [FrontPostController::class, 'tag']);
 Route::prefix('posts')->group(function () {
     Route::name('posts.display')->get('{slug}', [FrontPostController::class, 'show']);
     Route::name('posts.search')->get('', [FrontPostController::class, 'search']);
+    Route::name('posts.comments')->get('{post}/comments', [FrontCommentController::class, 'comments']);
+    Route::name('posts.comments.store')->post('{post}/comments', [FrontCommentController::class, 'store'])->middleware(('auth'));
+
 });
+
+Route::name('front.comments.destroy')->delete('comments/{comment}', [FrontCommentController::class, 'destroy'])
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
 
 require __DIR__ . '/auth.php';
