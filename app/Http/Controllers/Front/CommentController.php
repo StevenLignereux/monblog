@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Front\CommentRequest;
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -15,9 +17,21 @@ class CommentController extends Controller
         }
     }
 
-    public function store()
+    public function store(CommentRequest $request, Post $post)
     {
+        $data = [
+            'body' => $request->message,
+            'post_id' => $post->id,
+            'user_id' => $request->user()->id,
+        ];
 
+        $request->has('commentId') ?
+            Comment::findOrFail($request->commentId)->children()->create($data):
+            Comment::create($data);
+
+        $commenter = $request->user();
+
+        return response()->json($commenter->valid ? 'ok' : 'invalid');
     }
 
     public function destroy()
