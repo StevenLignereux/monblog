@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Comment;
+use App\Models\Contact;
 use App\Models\Post;
 use App\Models\User;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -121,7 +123,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $faker = \Faker\Factory::create();
+        $faker = Factory::create();
         Comment::create([
             'post_id' => 2,
             'user_id' => 3,
@@ -197,5 +199,9 @@ class DatabaseSeeder extends Seeder
                 ],
             ],
         ]);
+//        Contacts
+        Contact::withoutEvents(function () {
+           Contact::factory()->count(5)->create();
+        });
     }
 }

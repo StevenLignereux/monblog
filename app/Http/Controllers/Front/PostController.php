@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Front;
+namespace App\Http\Controllers\Front\Front;
 
 use App\Repositories\PostRepository;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Front\Controller;
 use App\Models\{Category, User, Tag};
 use App\Http\Requests\Front\SearchRequest;
 

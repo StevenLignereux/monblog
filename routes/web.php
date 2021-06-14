@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
-use App\Http\Controllers\Front\PostController as FrontPostController;
-use App\Http\Controllers\Front\CommentController as FrontCommentController;
+use App\Http\Controllers\Front\Front\PostController as FrontPostController;
+use App\Http\Controllers\Front\Front\CommentController as FrontCommentController;
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => 'auth'], function () {
     Lfm::routes();
