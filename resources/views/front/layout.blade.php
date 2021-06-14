@@ -6,8 +6,7 @@
     ================================================== -->
     <meta charset="utf-8">
     <title>{{ isset($post) && $post->seo_title ? $post->seo_title :  config('app.name') }}</title>
-    <meta name="description"
-          content="{{ isset($post) && $post->meta_description ? $post->meta_description : __(config('app.description')) }}">
+    <meta name="description" content="{{ isset($post) && $post->meta_description ? $post->meta_description : __(config('app.description')) }}">
     <meta name="author" content="{{ isset($post) ? $post->user->name : __(config('app.author')) }}">
     @if(isset($post) && $post->meta_keywords)
         <meta name="keywords" content="{{ $post->meta_keywords }}">
@@ -84,22 +83,31 @@
                     <li {{ currentRoute('login') }}>
                         <a href="{{ route('login') }}">@lang('Login')</a>
                     </li>
+                    @request('forgot-password')
+                    <li class="current">
+                        <a href="{{ request()->url() }}">@lang('Password')</a>
+                    </li>
+                    @endrequest
+                    @request('reset-password/*')
+                    <li class="current">
+                        <a href="{{ request()->url() }}">@lang('Password')</a>
+                    </li>
+                    @endrequest
                 @else
                     <li>
-                        <form action="{{ route('logout') }}" method="post" hidden>
+                        <form action="{{ route('logout') }}" method="POST" hidden>
                             @csrf
                         </form>
                         <a
                             href="{{ route('logout') }}"
-                            onclick="event.preventDefault();this.previousElementSibling.submit();">
+                            onclick="event.preventDefault(); this.previousElementSibling.submit();">
                             @lang('Logout')
                         </a>
                     </li>
                 @endguest
             </ul>
 
-            <a href="#0" title="@lang('Close Menu')"
-               class="s-header__overlay-close close-mobile-menu">@lang('Close')</a>
+            <a href="#0" title="@lang('Close Menu')" class="s-header__overlay-close close-mobile-menu">@lang('Close')</a>
 
         </nav>
 
@@ -115,8 +123,7 @@
                 <form role="search" method="get" class="s-header__search-form" action="{{ Route('posts.search') }}">
                     <label>
                         <span class="h-screen-reader-text">@lang('Search for:')</span>
-                        <input id="search" type="search" name="search" class="s-header__search-field"
-                               placeholder="@lang('Search for...')" title="@lang('Search for:')" autocomplete="off">
+                        <input id="search" type="search" name="search" class="s-header__search-field" placeholder="@lang('Search for...')" title="@lang('Search for:')" autocomplete="off">
                     </label>
                     <input type="submit" class="s-header__search-submit" value="Search">
                 </form>
@@ -129,10 +136,7 @@
     </div>
 
     <a class="s-header__search-trigger" href="#">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.982 17.983">
-            <path fill="#010101"
-                  d="M12.622 13.611l-.209.163A7.607 7.607 0 017.7 15.399C3.454 15.399 0 11.945 0 7.7 0 3.454 3.454 0 7.7 0c4.245 0 7.699 3.454 7.699 7.7a7.613 7.613 0 01-1.626 4.714l-.163.209 4.372 4.371-.989.989-4.371-4.372zM7.7 1.399a6.307 6.307 0 00-6.3 6.3A6.307 6.307 0 007.7 14c3.473 0 6.3-2.827 6.3-6.3a6.308 6.308 0 00-6.3-6.301z"/>
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.982 17.983"><path fill="#010101" d="M12.622 13.611l-.209.163A7.607 7.607 0 017.7 15.399C3.454 15.399 0 11.945 0 7.7 0 3.454 3.454 0 7.7 0c4.245 0 7.699 3.454 7.699 7.7a7.613 7.613 0 01-1.626 4.714l-.163.209 4.372 4.371-.989.989-4.371-4.372zM7.7 1.399a6.307 6.307 0 00-6.3 6.3A6.307 6.307 0 007.7 14c3.473 0 6.3-2.827 6.3-6.3a6.308 6.308 0 00-6.3-6.301z"/></svg>
     </a>
 
 </header>
@@ -212,10 +216,9 @@
 
                     <form id="mc-form" class="group" novalidate="true">
 
-                        <input type="email" value="" name="dEmail" class="email" id="mc-email"
-                               placeholder="Your Email Address" required="">
+                        <input type="email" value="" name="dEmail" class="email" id="mc-email" placeholder="Your Email Address" required="">
 
-                        <input type="submit" name="subscribe" value="subscribe">
+                        <input type="submit" name="subscribe" value="subscribe" >
 
                         <label for="mc-email" class="subscribe-message"></label>
 
@@ -241,11 +244,7 @@
 
         <div class="ss-go-top">
             <a class="smoothscroll" title="Back to Top" href="#top">
-                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15">
-                    <path
-                        d="M7.5 1.5l.354-.354L7.5.793l-.354.353.354.354zm-.354.354l4 4 .708-.708-4-4-.708.708zm0-.708l-4 4 .708.708 4-4-.708-.708zM7 1.5V14h1V1.5H7z"
-                        fill="currentColor"></path>
-                </svg>
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15"><path d="M7.5 1.5l.354-.354L7.5.793l-.354.353.354.354zm-.354.354l4 4 .708-.708-4-4-.708.708zm0-.708l-4 4 .708.708 4-4-.708-.708zM7 1.5V14h1V1.5H7z" fill="currentColor"></path></svg>
             </a>
         </div> <!-- end ss-go-top -->
     </div> <!-- end s-footer__bottom -->
