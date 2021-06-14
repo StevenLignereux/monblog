@@ -76,6 +76,11 @@
                     </ul>
                 </li>
                 @guest
+                    @request('register')
+                    <li class="current">
+                        <a href="{{ request()->url() }}">@lang('Register')</a>
+                    </li>
+                    @endrequest
                     <li {{ currentRoute('login') }}>
                         <a href="{{ route('login') }}">@lang('Login')</a>
                     </li>
