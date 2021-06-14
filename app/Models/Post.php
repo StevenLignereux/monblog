@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 
 class Post extends Model
@@ -26,9 +30,9 @@ class Post extends Model
     /**
      * user relation
      *
-     * @return void
+     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -36,9 +40,9 @@ class Post extends Model
     /**
      * categories relation
      *
-     * @return void
+     * @return BelongsToMany
      */
-    public function categories()
+    public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
     }
@@ -46,9 +50,9 @@ class Post extends Model
     /**
      * tags relation
      *
-     * @return void
+     * @return BelongsToMany
      */
-    public function tags()
+    public function tags(): BelongsToMany
     {
         return $this->BelongsToMany(Tag::class);
     }
@@ -56,9 +60,9 @@ class Post extends Model
     /**
      * comments relation
      *
-     * @return void
+     * @return HasMany
      */
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
@@ -66,7 +70,7 @@ class Post extends Model
     /**
      * validComments relation
      *
-     * @return void
+     * @return HasMany|Builder
      */
     public function validComments()
     {

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Front\Front;
+namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Front\Controller;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Front\CommentRequest;
 use App\Models\Post;
 use App\Models\Comment;

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Front\Front;
+namespace App\Http\Controllers\Front;
 
 use App\Repositories\PostRepository;
-use App\Http\Controllers\Front\Controller;
+use App\Http\Controllers\Controller;
 use App\Models\{Category, User, Tag};
 use App\Http\Requests\Front\SearchRequest;
 
@@ -14,7 +14,7 @@ class PostController extends Controller
     /**
      * The PostRepository instance.
      *
-     * @var \App\Repositories\PostRepository
+     * @var PostRepository
      */
     protected $postRepository;
 
@@ -28,7 +28,7 @@ class PostController extends Controller
     /**
      * Create a new PostController instance.
      *
-     * @param  \App\Repositories\PostRepository $postRepository
+     * @param PostRepository $postRepository
      * @return void
      */
     public function __construct(PostRepository $postRepository)

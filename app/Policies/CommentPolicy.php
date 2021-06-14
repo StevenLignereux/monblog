@@ -10,18 +10,18 @@ class CommentPolicy
 {
     use HandlesAuthorization;
 
-    protected function manage(User $user, Comment $comment)
+    protected function manage(User $user, Comment $comment): bool
     {
-        return $user->isAdmin() ?: $user->id === $comment->post->user_id || $user->id === $comment->user_id;
+        return $user->isAdmin() || $user->id === $comment->post->user_id || $user->id === $comment->user_id;
     }
 
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User  $user
-     * @return mixed
+     * @param User $user
+     * @return bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         return true;
     }
@@ -29,11 +29,11 @@ class CommentPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return mixed
+     * @param User $user
+     * @param Comment $comment
+     * @return bool
      */
-    public function view(User $user, Comment $comment)
+    public function view(User $user, Comment $comment): bool
     {
         return true;
 
@@ -42,11 +42,11 @@ class CommentPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return mixed
+     * @param User $user
+     * @param Comment $comment
+     * @return bool
      */
-    public function update(User $user, Comment $comment)
+    public function update(User $user, Comment $comment): bool
     {
         return $this->manage($user, $comment);
     }
@@ -54,22 +54,22 @@ class CommentPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return mixed
+     * @param User $user
+     * @param Comment $comment
+     * @return bool
      */
-    public function delete(User $user, Comment $comment)
+    public function delete(User $user, Comment $comment): bool
     {
         return $this->manage($user, $comment);
-        
+
     }
 
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return mixed
+     * @param User $user
+     * @param Comment $comment
+     * @return void
      */
     public function restore(User $user, Comment $comment)
     {
@@ -79,9 +79,9 @@ class CommentPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return mixed
+     * @param User $user
+     * @param Comment $comment
+     * @return void
      */
     public function forceDelete(User $user, Comment $comment)
     {
