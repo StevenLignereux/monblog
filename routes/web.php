@@ -6,6 +6,7 @@ use App\Http\Controllers\Front\{
     PostController as FrontPostController,
     CommentController as FrontCommentController,
     ContactController as FrontContactController,
+    PageController as FrontPageController,
 };
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => 'auth'], function () {
@@ -29,6 +30,8 @@ Route::name('front.comments.destroy')->delete('comments/{comment}', [FrontCommen
 
 // Contact
 Route::resource('contacts', FrontContactController::class, ['only' => ['create', 'store']]);
+
+Route::name('page')->get('page/{page:slug}', FrontPageController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
