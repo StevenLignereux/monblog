@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\ModelCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,6 +24,9 @@ class Comment extends Model
         'user_id',
     ];
 
+    protected $dispatchesEvents = [
+        'created' => ModelCreated::class,
+    ];
 
     /**
      * user relation

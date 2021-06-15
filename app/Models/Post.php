@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\ModelCreated;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,6 +26,10 @@ class Post extends Model
         'active',
         'image',
         'user_id',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => ModelCreated::class,
     ];
 
     /**
