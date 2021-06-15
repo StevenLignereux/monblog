@@ -33,6 +33,9 @@ Route::resource('contacts', FrontContactController::class, ['only' => ['create',
 
 Route::name('page')->get('page/{page:slug}', FrontPageController::class);
 
+//Admin
+Route::view('admin', 'back.layout');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

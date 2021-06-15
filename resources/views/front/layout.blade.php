@@ -219,8 +219,7 @@
         <div class="row">
             <div class="column">
                 <div class="ss-copyright">
-                    <span>© Copyright Calvin 2020</span>
-                    <span>Design by <a href="https://www.styleshout.com/">StyleShout</a></span>
+                    <span>Copyright &copy; 2021 {{ config('app.name', 'Laravel') }}.</span>
                 </div>
             </div>
         </div>
