@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Comment;
 use App\Models\Contact;
+use App\Models\Page;
 use App\Models\Post;
 use App\Models\User;
 use Faker\Factory;
@@ -203,5 +204,20 @@ class DatabaseSeeder extends Seeder
         Contact::withoutEvents(function () {
            Contact::factory()->count(5)->create();
         });
+
+//        Pages
+        $items = [
+            ['about-us', 'About us'],
+            ['terms', 'Terms'],
+            ['faq', 'FAQ'],
+            ['privacy-policy', 'Privacy Policy']
+        ];
+
+        foreach ($items as $item) {
+            Page::factory()->create([
+                'slug' => $item[0],
+                'title' => $item[1],
+            ]);
+        }
     }
 }
