@@ -2,13 +2,16 @@
 
 namespace App\Repositories;
 use App\Models\Post;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class PostRepository
 {
     /**
      * Create a query for Post.
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     protected function queryActive()
     {
@@ -26,7 +29,7 @@ class PostRepository
     /**
      * Create a query for Post.
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     protected function queryActiveOrderByDate()
     {
@@ -37,7 +40,7 @@ class PostRepository
      * Get active posts collection paginated.
      *
      * @param  int  $nbrPages
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
     public function getActiveOrderByDate($nbrPages)
     {
@@ -48,7 +51,7 @@ class PostRepository
      * Get heros.
      *
      * @param  int  $nbrPages
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
     public function getHeros()
     {
@@ -86,7 +89,7 @@ class PostRepository
      * Get previous post
      *
      * @param  integer  $id
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
      */
     protected function getPreviousPost($id)
     {
@@ -100,7 +103,7 @@ class PostRepository
      * Get next post
      *
      * @param  integer  $id
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
      */
     protected function getNextPost($id)
     {
@@ -115,7 +118,7 @@ class PostRepository
      *
      * @param  int  $nbrPages
      * @param  string  $category_slug
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
     public function getActiveOrderByDateForCategory($nbrPages, $category_slug)
     {
@@ -130,7 +133,7 @@ class PostRepository
      *
      * @param  int  $nbrPages
      * @param  integer  $user_id
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
     public function getActiveOrderByDateForUser($nbrPages, $user_id)
     {
@@ -143,9 +146,9 @@ class PostRepository
     /**
      * Get active posts for specified tag.
      *
-     * @param  int  $nbrPages
-     * @param  int  $tag_id
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @param int $nbrPages
+     * @param $tag_slug
+     * @return LengthAwarePaginator
      */
     public function getActiveOrderByDateForTag($nbrPages, $tag_slug)
     {
@@ -160,7 +163,7 @@ class PostRepository
      *
      * @param  int  $n
      * @param  string  $search
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
     public function search($n, $search)
     {
