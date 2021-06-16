@@ -13,19 +13,16 @@ class CategoryPostTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_post', function (Blueprint $table)
-        {
+        Schema::create('category_post', function(Blueprint $table) {
             $table->id();
-
             $table->foreignId('category_id')
-                ->constrained()
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-
+                  ->constrained()
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
             $table->foreignId('post_id')
-                ->constrained()
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+                  ->constrained()
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
         });
     }
 

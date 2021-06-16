@@ -2,80 +2,86 @@
 
 namespace App\Models;
 
-use App\Events\ModelCreated;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Events\ModelCreated;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 
 class Post extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = [
-        'title',
-        'slug',
-        'seo_title',
-        'excerpt',
-        'body',
-        'meta_description',
-        'meta_keywords',
-        'active',
-        'image',
-        'user_id',
-    ];
-
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
     protected $dispatchesEvents = [
         'created' => ModelCreated::class,
     ];
 
     /**
-     * user relation
+     * The attributes that are mass assignable.
      *
-     * @return BelongsTo
+     * @var array
      */
-    public function user(): BelongsTo
+    protected $fillable = [
+        'title', 
+        'slug', 
+        'seo_title', 
+        'excerpt', 
+        'body', 
+        'meta_description', 
+        'meta_keywords', 
+        'active', 
+        'image', 
+        'user_id',
+    ];
+
+    /**
+     * Get user of the Post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * categories relation
+     * Get all categories for the post
      *
-     * @return BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
      */
-    public function categories(): BelongsToMany
+    public function categories()
     {
         return $this->belongsToMany(Category::class);
     }
 
     /**
-     * tags relation
+     * Get all tags for the post
      *
-     * @return BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function tags(): BelongsToMany
+    public function tags()
     {
-        return $this->BelongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class);
     }
 
     /**
-     * comments relation
+     * Get all comments for the post
      *
-     * @return HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comments(): HasMany
+    public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
     /**
-     * validComments relation
+     * Get all valid comments for the post
      *
-     * @return HasMany|Builder
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
      */
     public function validComments()
     {

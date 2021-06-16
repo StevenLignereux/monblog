@@ -2,10 +2,11 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\ {
+    Queue\SerializesModels,
+    Database\Eloquent\Model,
+    Foundation\Events\Dispatchable
+};
 
 class ModelCreated
 {
@@ -16,11 +17,10 @@ class ModelCreated
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Model $model
      */
     public function __construct(Model $model)
     {
         $this->model = $model;
     }
-
 }

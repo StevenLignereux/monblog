@@ -2,13 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Comment;
-use App\Models\Contact;
-use App\Models\Page;
-use App\Models\Post;
-use App\Models\User;
-use Faker\Factory;
 use Illuminate\Database\Seeder;
+use App\Models\{ User, Contact, Post, Comment, Page };
 use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
@@ -20,6 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // Users
         User::withoutEvents(function () {
             // Create 1 admin
             User::factory()->create([
@@ -32,8 +28,10 @@ class DatabaseSeeder extends Seeder
             // Create 3 users
             User::factory()->count(3)->create();
         });
+
         $nbrUsers = 6;
 
+        // Categories
         DB::table('categories')->insert([
             [
                 'title' => 'Category 1',
@@ -48,8 +46,10 @@ class DatabaseSeeder extends Seeder
                 'slug' => 'category-3'
             ],
         ]);
+
         $nbrCategories = 3;
 
+        // Tags
         DB::table('tags')->insert([
             ['tag' => 'Tag1', 'slug' => 'tag1'],
             ['tag' => 'Tag2', 'slug' => 'tag2'],
@@ -58,8 +58,10 @@ class DatabaseSeeder extends Seeder
             ['tag' => 'Tag5', 'slug' => 'tag5'],
             ['tag' => 'Tag6', 'slug' => 'tag6']
         ]);
+
         $nbrTags = 6;
 
+        // Posts
         Post::withoutEvents(function () {
             foreach (range(1, 2) as $i) {
                 Post::factory()->create([
@@ -80,36 +82,38 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         });
+
         $nbrPosts = 9;
 
         // Tags attachment
         $posts = Post::all();
         foreach ($posts as $post) {
             if ($post->id === 9) {
-                $numbers = [1, 2, 5, 6];
+                $numbers=[1,2,5,6];
                 $n = 4;
             } else {
-                $numbers = range(1, $nbrTags);
-                shuffle($numbers);
-                $n = rand(2, 4);
+                $numbers = range (1, $nbrTags);
+                shuffle ($numbers);
+                $n = rand (2, 4);
             }
-            for ($i = 0; $i < $n; ++$i) {
+            for($i = 0; $i < $n; ++$i) {
                 $post->tags()->attach($numbers[$i]);
             }
         }
+
         // Set categories
         foreach ($posts as $post) {
             if ($post->id === 9) {
-                DB::table('category_post')->insert([
+                DB::table ('category_post')->insert ([
                     'category_id' => 1,
                     'post_id' => 9,
                 ]);
             } else {
-                $numbers = range(1, $nbrCategories);
-                shuffle($numbers);
-                $n = rand(1, 2);
+                $numbers = range (1, $nbrCategories);
+                shuffle ($numbers);
+                $n = rand (1, 2);
                 for ($i = 0; $i < $n; ++$i) {
-                    DB::table('category_post')->insert([
+                    DB::table ('category_post')->insert ([
                         'category_id' => $numbers[$i],
                         'post_id' => $post->id,
                     ]);
@@ -117,6 +121,7 @@ class DatabaseSeeder extends Seeder
             }
         }
 
+        // Comments
         foreach (range(1, $nbrPosts - 1) as $i) {
             Comment::factory()->create([
                 'post_id' => $i,
@@ -124,16 +129,19 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $faker = Factory::create();
+        $faker = \Faker\Factory::create();
+
         Comment::create([
             'post_id' => 2,
             'user_id' => 3,
             'body' => $faker->paragraph($nbSentences = 4, $variableNbSentences = true),
+        
             'children' => [
                 [
                     'post_id' => 2,
                     'user_id' => 4,
                     'body' => $faker->paragraph($nbSentences = 4, $variableNbSentences = true),
+
                     'children' => [
                         [
                             'post_id' => 2,
@@ -144,10 +152,12 @@ class DatabaseSeeder extends Seeder
                 ],
             ],
         ]);
+
         Comment::create([
             'post_id' => 2,
             'user_id' => 6,
             'body' => $faker->paragraph($nbSentences = 4, $variableNbSentences = true),
+        
             'children' => [
                 [
                     'post_id' => 2,
@@ -158,12 +168,13 @@ class DatabaseSeeder extends Seeder
                     'post_id' => 2,
                     'user_id' => 6,
                     'body' => $faker->paragraph($nbSentences = 4, $variableNbSentences = true),
+
                     'children' => [
                         [
                             'post_id' => 2,
                             'user_id' => 3,
                             'body' => $faker->paragraph($nbSentences = 4, $variableNbSentences = true),
-
+                        
                             'children' => [
                                 [
                                     'post_id' => 2,
@@ -176,18 +187,20 @@ class DatabaseSeeder extends Seeder
                 ],
             ],
         ]);
+
         Comment::create([
             'post_id' => 4,
             'user_id' => 4,
             'body' => $faker->paragraph($nbSentences = 4, $variableNbSentences = true),
+        
             'children' => [
                 [
                     'post_id' => 4,
                     'user_id' => 5,
                     'body' => $faker->paragraph($nbSentences = 4, $variableNbSentences = true),
+        
                     'children' => [
-                        [
-                            'post_id' => 4,
+                        [   'post_id' => 4,
                             'user_id' => 2,
                             'body' => $faker->paragraph($nbSentences = 4, $variableNbSentences = true),
                         ],
@@ -200,31 +213,32 @@ class DatabaseSeeder extends Seeder
                 ],
             ],
         ]);
-//        Contacts
-        Contact::withoutEvents(function () {
-           Contact::factory()->count(5)->create();
+
+        // Contacts
+          Contact::withoutEvents(function () {
+            Contact::factory()->count(5)->create();
         });
 
-//        Pages
+        // Pages
         $items = [
             ['about-us', 'About us'],
             ['terms', 'Terms'],
             ['faq', 'FAQ'],
-            ['privacy-policy', 'Privacy Policy']
+            ['privacy-policy', 'Privacy Policy'],
         ];
 
-        foreach ($items as $item) {
+        foreach($items as $item) {
             Page::factory()->create([
                 'slug' => $item[0],
                 'title' => $item[1],
             ]);
         }
 
-//        Social
+        // Social
         DB::table('follows')->insert([
             ['title' => 'Twitter', 'href' => '#'],
             ['title' => 'Facebook', 'href' => '#'],
-            ['title' => 'Dribble', 'href' => '#'],
+            ['title' => 'Dribbble', 'href' => '#'],
             ['title' => 'Instagram', 'href' => '#'],
         ]);
     }

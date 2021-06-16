@@ -16,22 +16,22 @@
               @if(Auth::check())
                   <div class="comment__reply">
                       @if($comment->depth < config('app.commentsNestedLevel'))
-                          <a
-                              class="comment-reply-link replycomment"
-                              href="#"
-                              data-name="{{ $comment->user->name }}"
+                          <a 
+                              class="comment-reply-link replycomment" 
+                              href="#" 
+                              data-name="{{ $comment->user->name }}" 
                               data-id="{{ $comment->id }}">
                               @lang('Reply')
                           </a>
                       @endif
                       @if(Auth::user()->name == $comment->user->name)
-                          <a
-                              href="{{ route('front.comments.destroy', $comment->id) }}"
-                              class="comment-reply-link deletecomment"
+                          <a 
+                              href="{{ route('front.comments.destroy', $comment->id) }}" 
+                              class="comment-reply-link deletecomment" 
                               style="color:red">
                               @lang('Delete')
                           </a>
-                      @endif
+                      @endif 
                   </div>
               @endif
           </div>

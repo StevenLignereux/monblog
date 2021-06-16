@@ -6,8 +6,9 @@ use App\Http\Controllers\Front\{
     PostController as FrontPostController,
     CommentController as FrontCommentController,
     ContactController as FrontContactController,
-    PageController as FrontPageController,
+    PageController as FrontPageController
 };
+use App\Http\Controllers\Back\AdminController;
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => 'auth'], function () {
     Lfm::routes();
@@ -18,7 +19,7 @@ Route::name('home')->get('/', [FrontPostController::class, 'index']);
 Route::name('category')->get('category/{category:slug}', [FrontPostController::class, 'category']);
 Route::name('author')->get('author/{user}', [FrontPostController::class, 'user']);
 Route::name('tag')->get('tag/{tag:slug}', [FrontPostController::class, 'tag']);
-
+Route::name('page')->get('page/{page:slug}', FrontPageController::class);
 
 Route::prefix('posts')->group(function () {
     Route::name('posts.display')->get('{slug}', [FrontPostController::class, 'show']);
@@ -31,13 +32,27 @@ Route::name('front.comments.destroy')->delete('comments/{comment}', [FrontCommen
 // Contact
 Route::resource('contacts', FrontContactController::class, ['only' => ['create', 'store']]);
 
-Route::name('page')->get('page/{page:slug}', FrontPageController::class);
-
-//Admin
-Route::view('admin', 'back.layout');
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+//Route::view('admin', 'back.layout');
+
+/*
+|--------------------------------------------------------------------------
+| Backend
+|--------------------------------------------------------------------------|
+*/
+
+Route::prefix('admin')->group(function () {
+
+    Route::middleware('redac')->group(function () {
+  
+        // Dashboard
+        Route::name('admin')->get('/', [AdminController::class, 'index']);
+        // Purge
+        Route::name('purge')->put('purge/{model}', [AdminController::class, 'purge']);
+    });
+});

@@ -3,25 +3,28 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
-    protected $fillable = [
-        'title',
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+      protected $fillable = [
+        'title', 
         'slug',
     ];
 
     public $timestamps = false;
 
     /**
-     * relation
+     * Many to Many relation
      *
-     * @return BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
      */
-    public function posts(): BelongsToMany
+    public function posts()
     {
         return $this->belongsToMany(Post::class);
     }
-
 }

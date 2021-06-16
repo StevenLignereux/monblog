@@ -2,15 +2,24 @@
 
 namespace App\Models;
 
-use App\Events\ModelCreated;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Events\ModelCreated;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => ModelCreated::class,
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -21,8 +30,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
-        'valid'
+        'role', 
+        'valid',
     ];
 
     /**
@@ -44,32 +53,32 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $dispatchesEvents = [
-        'created' => ModelCreated::class,
-    ];
-
-
     /**
-     * Relation
+     * One to Many relation
      *
-     * @return HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function posts(): HasMany
+    public function posts()
     {
         return $this->hasMany(Post::class);
     }
 
     /**
-     * comments relation
+     * One to Many relation
      *
-     * @return HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comments(): HasMany
+    public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
-    public function isAdmin(): bool
+    /**
+     * Determine if user is administrator
+     *
+     * @return boolean
+     */
+    public function isAdmin()
     {
         return $this->role === 'admin';
     }

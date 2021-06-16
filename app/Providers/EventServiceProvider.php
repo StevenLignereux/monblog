@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Event;
 use App\Events\ModelCreated;
 use App\Listeners\ModelCreated as ModelCreatedListener;
 
-
-
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -25,9 +23,7 @@ class EventServiceProvider extends ServiceProvider
         ModelCreated::class => [
             ModelCreatedListener::class,
         ],
-
     ];
-
 
     /**
      * Register any events for your application.

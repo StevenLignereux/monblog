@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Front;
-
 use App\Repositories\PostRepository;
 use App\Http\Controllers\Controller;
-use App\Models\{Category, User, Tag};
+use App\Models\{ Category, User, Tag };
 use App\Http\Requests\Front\SearchRequest;
 
 use Illuminate\Http\Request;
@@ -14,7 +13,7 @@ class PostController extends Controller
     /**
      * The PostRepository instance.
      *
-     * @var PostRepository
+     * @var \App\Repositories\PostRepository
      */
     protected $postRepository;
 
@@ -28,9 +27,9 @@ class PostController extends Controller
     /**
      * Create a new PostController instance.
      *
-     * @param PostRepository $postRepository
+     * @param  \App\Repositories\PostRepository $postRepository
      * @return void
-     */
+    */
     public function __construct(PostRepository $postRepository)
     {
         $this->postRepository = $postRepository;
@@ -60,7 +59,7 @@ class PostController extends Controller
     public function show(Request $request, $slug)
     {
         $post = $this->postRepository->getPostBySlug($slug);
-
+ 
         return view('front.post', compact('post'));
     }
 

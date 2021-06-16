@@ -12,8 +12,8 @@
                       <a href="#">{{ $category->title }}</a>
                   @endforeach
               </span>
-              <span class="byline">
-                  @lang('Posted By')
+              <span class="byline"> 
+                  @lang('Posted By') 
                   <span class="author">
                       <a href="#">{{ $post->user->name }}</a>
                   </span>
