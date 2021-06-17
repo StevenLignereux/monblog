@@ -19,6 +19,14 @@ use Illuminate\Http\Response;
 class PostController extends Controller
 {
     /**
+     * PostController constructor.
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Post::class, 'post');
+    }
+
+    /**
      * Display a listing of the posts.
      *
      * @param PostsDataTable $dataTable
