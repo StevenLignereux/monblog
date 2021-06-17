@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\Back;
 
-use App\DataTables\PostsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\DataTables\PostsDataTable;
 use Illuminate\Http\Response;
 
 class PostController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the posts.
      *
      * @param PostsDataTable $dataTable
      * @return Response
      */
-    public function index(PostsDataTable $dataTable): Response
+    public function index(PostsDataTable $dataTable)
     {
-        return $dataTable->render('back.send.index');
+        return $dataTable->render('back.shared.index');
     }
 
     /**
@@ -41,8 +41,6 @@ class PostController extends Controller
     {
         //
     }
-
-
 
     /**
      * Show the form for editing the specified resource.
