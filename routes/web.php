@@ -58,7 +58,8 @@ Route::prefix('admin')->group(function () {
         // Purge
         Route::name('purge')->put('purge/{model}', [AdminController::class, 'purge']);
         // Posts
-        Route::resource('posts', BackPostController::class)->except('show');
+        Route::resource('posts', BackPostController::class)->except(['show', 'create']);
+        Route::name('posts.create')->get('posts/create/{id?}', [BackPostController::class, 'create']);
     });
 
     Route::middleware('admin')->group(function () {
