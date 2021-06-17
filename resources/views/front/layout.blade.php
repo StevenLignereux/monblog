@@ -41,7 +41,7 @@
 
     <!-- preloader
     ================================================== -->
-    <div id="preloader"> 
+    <div id="preloader">
     	<div id="loader"></div>
     </div>
 
@@ -85,7 +85,7 @@
                         @endrequest
                         <li {{ currentRoute('login') }}>
                             <a href="{{ route('login') }}">@lang('Login')</a>
-                        </li>                        
+                        </li>
                         @request('forgot-password')
                             <li class="current">
                                 <a href="{{ request()->url() }}">@lang('Password')</a>
@@ -102,11 +102,11 @@
                                 <a href="{{ url('admin') }}">@lang('Administration')</a>
                             </li>
                         @endif
-                        <li>                                
+                        <li>
                             <form action="{{ route('logout') }}" method="POST" hidden>
-                                @csrf                                
+                                @csrf
                             </form>
-                            <a 
+                            <a
                                 href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); this.previousElementSibling.submit();">
                                 @lang('Logout')
@@ -133,7 +133,7 @@
                             <span class="h-screen-reader-text">@lang('Search for:')</span>
                             <input id="search" type="search" name="search" class="s-header__search-field" placeholder="@lang('Search for...')" title="@lang('Search for:')" autocomplete="off">
                         </label>
-                        <input type="submit" class="s-header__search-submit" value="Search"> 
+                        <input type="submit" class="s-header__search-submit" value="Search">
                     </form>
 
                     <a href="#0" title="@lang('Close Search')" class="s-header__overlay-close">@lang('Close')</a>
@@ -177,10 +177,10 @@
                     <h5>@lang('About Our Site')</h5>
 
                     <p>
-                    Lorem ipsum Ut velit dolor Ut labore id fugiat in ut 
-                    fugiat nostrud qui in dolore commodo eu magna Duis 
-                    cillum dolor officia esse mollit proident Excepteur 
-                    exercitation nulla. Lorem ipsum In reprehenderit 
+                    Lorem ipsum Ut velit dolor Ut labore id fugiat in ut
+                    fugiat nostrud qui in dolore commodo eu magna Duis
+                    cillum dolor officia esse mollit proident Excepteur
+                    exercitation nulla. Lorem ipsum In reprehenderit
                     commodo aliqua irure.
                     </p>
 
@@ -196,10 +196,10 @@
                         @endforeach
                     </ul>
 
-                </div> 
+                </div>
 
                 <div class="column large-2 medium-3 tab-6 s-footer__social-links">
-                    
+
                     <h5>@lang('Follow Us')</h5>
 
                     <ul>
@@ -218,11 +218,10 @@
             <div class="row">
                 <div class="column">
                     <div class="ss-copyright">
-                        <span>© Copyright Calvin 2020</span> 
-                        <span>Design by <a href="https://www.styleshout.com/">StyleShout</a></span>
+                        <span>© Copyright SiteKiKlak 2021</span>
                     </div>
                 </div>
-            </div> 
+            </div>
 
             <div class="ss-go-top">
                 <a class="smoothscroll" title="Back to Top" href="#top">
