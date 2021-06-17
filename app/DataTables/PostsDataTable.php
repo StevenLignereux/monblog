@@ -3,6 +3,9 @@
 namespace App\DataTables;
 
 use App\Models\Post;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Route;
+use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -15,9 +18,9 @@ class PostsDataTable extends DataTable
      * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
-     * @return \Yajra\DataTables\DataTableAbstract
+     * @return DataTableAbstract
      */
-    public function dataTable($query)
+    public function dataTable($query): DataTableAbstract
     {
         return datatables()
             ->eloquent($query)
@@ -27,12 +30,31 @@ class PostsDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Post $model
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Post $post
+     * @return Builder
      */
-    public function query(Post $model)
+    public function query(Post $post): Builder
     {
-        return $model->newQuery();
+        $query = isRole('redac') ? auth()->user()->posts() : $post->newQuery();
+
+        if (Route::currentRouteName('posts.indexnew')) {
+            $query->has('unreadNotifications');
+        }
+
+        return $query
+            ->select(
+                'posts.id',
+                'slug',
+                'title',
+                'active',
+                'posts.created_at',
+                'posts.updated_at',
+                'user_id')
+            ->with(
+                'user:id, name',
+                'categories:title'
+            )
+            ->withCount('comments');
     }
 
     /**
@@ -40,21 +62,14 @@ class PostsDataTable extends DataTable
      *
      * @return \Yajra\DataTables\Html\Builder
      */
-    public function html()
+    public function html(): \Yajra\DataTables\Html\Builder
     {
         return $this->builder()
                     ->setTableId('posts-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+                    ->dom('Blfrtip')
+                    ->lengthMenu();
     }
 
     /**
@@ -62,18 +77,10 @@ class PostsDataTable extends DataTable
      *
      * @return array
      */
-    protected function getColumns()
+    protected function getColumns(): array
     {
-        return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+        $columns = [
+            Column::make('title')->title('Author')
         ];
     }
 
@@ -82,7 +89,7 @@ class PostsDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'Posts_' . date('YmdHis');
     }
