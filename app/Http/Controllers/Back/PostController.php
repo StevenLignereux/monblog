@@ -10,6 +10,7 @@ use App\Repositories\PostRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\DataTables\PostsDataTable;
@@ -69,14 +70,14 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
      * @param Post $post
-     * @return Response
+     * @return Application|Factory|View
      */
     public function edit(Post $post)
     {
-        //
+        $categories = Category::all()->pluck('title', 'id');
+
+        return view('back.posts.form', compact('post', 'categories'));
     }
 
     /**
@@ -84,11 +85,14 @@ class PostController extends Controller
      *
      * @param Request $request
      * @param Post $post
-     * @return Response
+     * @param PostRepository $repository
+     * @return RedirectResponse
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Post $post, PostRepository $repository)
     {
-        //
+        $repository->update($post, $request);
+
+        return back()->with('ok', __('The post has been successfully updated'));
     }
 
     /**
@@ -99,6 +103,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return response()->json();
     }
 }
