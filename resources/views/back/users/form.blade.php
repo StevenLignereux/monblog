@@ -4,12 +4,8 @@
 
     <form 
         method="post" 
-        action="{{ Route::currentRouteName() === 'categories.edit' ? route('categories.update', $category->id) : route('categories.store') }}">
-
-        @if(Route::currentRouteName() === 'categories.edit')
-            @method('PUT')
-        @endif
-        
+        action="{{ route('users.update', $user->id) }}">
+        @method('PUT')
         @csrf
 
         <div class="row">
@@ -29,18 +25,32 @@
                     :outline="true"
                     title=''>
                     <x-back.input
-                        title='Title'
-                        name='title'
-                        :value="isset($category) ? $category->title : ''"
+                        title='Name'
+                        name='name'
+                        :value='$user->name'
                         input='text'
                         :required="true">
                     </x-back.input>
                     <x-back.input
-                        title='Slug'
-                        name='slug'
-                        :value="isset($category) ? $category->slug : ''"
+                        title='Email'
+                        name='email'
+                        :value='$user->email'
                         input='text'
                         :required="true">
+                    </x-back.input>
+                    <x-back.input
+                        title='Role'
+                        name='role'
+                        :value='$user->role'
+                        :options="['admin','redac','user']"
+                        input='select'
+                        :required="true">
+                    </x-back.input>
+                    <x-back.input
+                        name='valid'
+                        :value='$user->valid'
+                        input='checkbox'
+                        label="Valid">
                     </x-back.input>
                 </x-back.card>
 
@@ -48,28 +58,6 @@
 
               </div>
         </div>
-
-
     </form>
-
-@endsection
-
-@section('js')
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/speakingurl/14.0.1/speakingurl.min.js"></script>
-    <script>
-
-        $(function() 
-        {
-            $('#slug').keyup(function () {
-              $(this).val(getSlug($(this).val()))
-            })
-
-            $('#title').keyup(function () {
-              $('#slug').val(getSlug($(this).val()))
-            })
-        });
-
-    </script>
 
 @endsection

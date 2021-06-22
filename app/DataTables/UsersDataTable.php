@@ -11,6 +11,12 @@ class UsersDataTable extends DataTable
 {
     use DataTableTrait;
 
+    /**
+     * Build DataTable class.
+     *
+     * @param mixed $query Results from query() method.
+     * @return \Yajra\DataTables\DataTableAbstract
+     */
     public function dataTable($query)
     {
         return datatables()
@@ -26,23 +32,29 @@ class UsersDataTable extends DataTable
             })
             ->addColumn('action', function ($user) {
                 return $this->button(
-                        'users.edit',
-                        $user->id,
-                        'warning',
-                        __('Edit'),
-                        'edit'
-                    ). $this->button(
-                        'users.destroy',
-                        $user->id,
-                        'danger',
-                        __('Delete'),
-                        'trash-alt',
-                        __('Really delete this user?')
-                    );
+                          'users.edit', 
+                          $user->id, 
+                          'warning', 
+                          __('Edit'), 
+                          'edit'
+                      ). $this->button(
+                          'users.destroy', 
+                          $user->id, 
+                          'danger', 
+                          __('Delete'), 
+                          'trash-alt', 
+                          __('Really delete this user?')
+                      );
             })
             ->rawColumns(['valid', 'action']);
     }
 
+    /**
+     * Get query source of dataTable.
+     *
+     * @param \App\Models\User $model
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function query(User $model)
     {
         if(Route::currentRouteNamed('users.indexnew')) {
@@ -52,16 +64,26 @@ class UsersDataTable extends DataTable
         return $model->newQuery();
     }
 
+    /**
+     * Optional method if you want to use html builder.
+     *
+     * @return \Yajra\DataTables\Html\Builder
+     */
     public function html()
     {
         return $this->builder()
-            ->setTableId('users-table')
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->dom('Blfrtip')
-            ->lengthMenu();
+                    ->setTableId('users-table')
+                    ->columns($this->getColumns())
+                    ->minifiedAjax()
+                    ->dom('Blfrtip')
+                    ->lengthMenu();
     }
 
+    /**
+     * Get columns.
+     *
+     * @return array
+     */
     protected function getColumns()
     {
         return [
@@ -70,11 +92,16 @@ class UsersDataTable extends DataTable
             Column::make('role')->title(__('Role')),
             Column::make('created_at')->title('Creation'),
             Column::make('updated_at')->title('Modification'),
-            Column::make('valid')->title(__('Valid'))->addClass('align-middle text-center'),
+            Column::make('valid')->title(__('Valid'))->addClass('align-middle text-center'),            
             Column::computed('action')->title(__('Action'))->addClass('align-middle text-center'),
         ];
     }
 
+    /**
+     * Get filename for export.
+     *
+     * @return string
+     */
     protected function filename()
     {
         return 'Users_' . date('YmdHis');

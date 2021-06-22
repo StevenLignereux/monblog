@@ -11,8 +11,8 @@ use App\Http\Controllers\Front\{
 use App\Http\Controllers\Back\{
     AdminController,
     PostController as BackPostController,
-    ResourceController as BackResourceController
-
+    ResourceController as BackResourceController,
+    UserController as BackUserController,
 };
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => 'auth'], function () {
@@ -54,7 +54,7 @@ require __DIR__.'/auth.php';
 Route::prefix('admin')->group(function () {
 
     Route::middleware('redac')->group(function () {
-
+  
         // Dashboard
         Route::name('admin')->get('/', [AdminController::class, 'index']);
         // Purge
@@ -65,13 +65,13 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::middleware('admin')->group(function () {
-
+        
         // Posts
         Route::name('posts.indexnew')->get('newposts', [BackPostController::class, 'index']);
+        // Categories
         Route::resource('categories', BackResourceController::class)->except(['show']);
-
         // Users
-        Route::resource('users', BackResourceController::class)->except(['show', 'create', 'store']);
+        Route::resource('users', BackUserController::class)->except(['show', 'create', 'store']);
         Route::name('users.indexnew')->get('newusers', [BackResourceController::class, 'index']);
     });
 });

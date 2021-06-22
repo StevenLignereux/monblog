@@ -2,26 +2,38 @@
 
 namespace App\DataTables;
 
+
 trait DataTableTrait
 {
-    public function badge($text, $type, $margin = 0): string
+    /**
+     * Create badge
+     *
+     * @param String $text
+     * @param String $type
+     * @param Integer $margin
+     * @return String
+     */
+    public function badge($text, $type, $margin = 0)
     {
-        return <<<'HTML'
-<span class="badge badge-
-HTML
- . $type . ' ml-' . $margin . '">' . __($text) . '</span>';
+        return '<span class="badge badge-' . $type . ' ml-' . $margin . '">' . __($text) . '</span>';
     }
 
-    public function button($route, $param, $type, $title, $icon, $name = '', $target = '_self'): string
+    /**
+     * Create button
+     *
+     * @param String $route
+     * @param String $param
+     * @param String $type
+     * @param String $text
+     * @return String
+     */
+    public function button($route, $param, $type, $title, $icon, $name = '', $target = '_self')
     {
-        return <<<'HTML'
-<a
-                    title="
-HTML
-. $title . '"
-                    data-name="' . $name . '"
-                    href="' . route($route, $param) . '"
-                    class="px-3 btn btn-xs btn-' . $type . '"
+        return '<a 
+                    title="'. $title . '" 
+                    data-name="' . $name . '" 
+                    href="' . route($route, $param) . '" 
+                    class="px-3 btn btn-xs btn-' . $type . '" 
                     target="' . $target . '">
                     <i class="far fa-' . $icon . '"></i>
                 </a>';

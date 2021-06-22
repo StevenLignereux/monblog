@@ -1,9 +1,9 @@
 @props(['errors'])
 
 @if($errors->any())
-    <x-back.alert
-        type='danger'
-        icon='ban'
+    <x-back.alert 
+        type='danger' 
+        icon='ban' 
         title="{{ __('Whoops! Something went wrong.') }}">
         <ul>
             @foreach($errors->all() as $error)

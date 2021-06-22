@@ -25,19 +25,19 @@ class CategoriesDataTable extends DataTable
             })
             ->editColumn('action', function ($category) {
                 return $this->button(
-                        'categories.edit',
-                        $category->id,
-                        'warning',
-                        __('Edit'),
-                        'edit'
-                    ). $this->button(
-                        'categories.destroy',
-                        $category->id,
-                        'danger',
-                        __('Delete'),
-                        'trash-alt',
-                        __('Really delete this category?')
-                    );
+                          'categories.edit', 
+                          $category->id, 
+                          'warning', 
+                          __('Edit'), 
+                          'edit'
+                      ). $this->button(
+                          'categories.destroy', 
+                          $category->id, 
+                          'danger', 
+                          __('Delete'), 
+                          'trash-alt', 
+                          __('Really delete this category?')
+                      );
             })
             ->rawColumns(['posts_count', 'action']);
     }
@@ -61,11 +61,11 @@ class CategoriesDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->setTableId('categories-table')
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->dom('Blfrtip')
-            ->lengthMenu();
+                    ->setTableId('categories-table')
+                    ->columns($this->getColumns())
+                    ->minifiedAjax()
+                    ->dom('Blfrtip')
+                    ->lengthMenu();
     }
 
     /**

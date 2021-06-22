@@ -32,10 +32,10 @@ class ResourceController extends Controller
 
             $model = ucfirst($this->singular); // Category
 
-            $this->model = 'App\Models\\' . $model;
+            $this->model = 'App\Models\\' . $model; 
             $this->dataTable = 'App\DataTables\\' . ucfirst($name) . 'sDataTable';
             $this->view = 'back.' . $name . 's.form';
-            $this->formRequest = 'App\Http\Requests\Back\\' . $model . 'Request';
+            $this->formRequest = 'App\Http\Requests\Back\\' . $model . 'Request'; 
         }
     }
 
@@ -67,7 +67,7 @@ class ResourceController extends Controller
     public function store()
     {
         $request = app()->make($this->formRequest);
-
+        
         app()->make($this->model)->create($request->all());
 
         return back()->with(['ok' => __('The ' . $this->singular . ' has been successfully created.')]);

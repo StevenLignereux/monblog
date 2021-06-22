@@ -1,7 +1,7 @@
 @props([
-'type',
-'icon' => 'check',
-'title' => '',
+    'type', 
+    'icon' => 'check', 
+    'title' => '',
 ])
 
 <div class="alert alert-{{ $type }} alert-dismissible">

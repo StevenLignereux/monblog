@@ -2,23 +2,20 @@
 
 namespace App\Http\Controllers\Back;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Back\PostRequest;
-use App\Models\Category;
-use App\Models\Post;
+use App\Http\{
+    Controllers\Controller,
+    Requests\Back\PostRequest
+};
 use App\Repositories\PostRepository;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use App\Models\{ Post, Category };
 use App\DataTables\PostsDataTable;
-use Illuminate\Http\Response;
 
 class PostController extends Controller
 {
     /**
-     * PostController constructor.
+     * Create the controller instance.
+     *
+     * @return void
      */
     public function __construct()
     {
@@ -28,8 +25,8 @@ class PostController extends Controller
     /**
      * Display a listing of the posts.
      *
-     * @param PostsDataTable $dataTable
-     * @return Response
+     * @param  \App\DataTables\PostsDataTable  $dataTable
+     * @return \Illuminate\Http\Response
      */
     public function index(PostsDataTable $dataTable)
     {
@@ -37,37 +34,37 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @param Integer|null $id
-     * @return Application|Factory|View
+     * Show the form for creating a new post.
+     *
+     * @param  Integer $id
+     * @return \Illuminate\Http\Response
      */
-    public function create(int $id = null)
+    public function create($id = null)
     {
-        $post = null;
+        $post = null; 
 
-        if ($id) {
+        if($id) {
             $post = Post::findOrFail($id);
-
-            if ($post->user_id === auth()->id()) {
+            if($post->user_id === auth()->id()) {
                 $post->title .= ' (2)';
-                $post->slug .= '-2';
+                $post->slug .='-2';
                 $post->active = false;
             } else {
                 $post = null;
-            }
+            } 
         }
-
+        
         $categories = Category::all()->pluck('title', 'id');
 
         return view('back.posts.form', compact('post', 'categories'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created post in storage.
      *
-     * @param PostRequest $request
-     * @param PostRepository $repository
-     * @return RedirectResponse
+     * @param  \App\Http\Requests\Back\PostRequest  $request
+     * @param  \App\Repositories\PostRepository $request
+     * @return \Illuminate\Http\Response
      */
     public function store(PostRequest $request, PostRepository $repository)
     {
@@ -77,8 +74,10 @@ class PostController extends Controller
     }
 
     /**
-     * @param Post $post
-     * @return Application|Factory|View
+     * Show the form for editing the specified post.
+     *
+     * @param  \App\Models\Post  $post
+     * @return \Illuminate\Http\Response
      */
     public function edit(Post $post)
     {
@@ -88,14 +87,14 @@ class PostController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified post in storage.
      *
-     * @param Request $request
-     * @param Post $post
-     * @param PostRepository $repository
-     * @return RedirectResponse
+     * @param  \App\Http\Requests\Back\PostRequest  $request
+     * @param  \App\Repositories\PostRepository $repository
+     * @param  \App\Models\Post  $post
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post, PostRepository $repository)
+    public function update(PostRequest $request, PostRepository $repository, Post $post)
     {
         $repository->update($post, $request);
 
@@ -105,8 +104,8 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Post $post
-     * @return Response
+     * @param  \App\Models\Post  $post
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)
     {

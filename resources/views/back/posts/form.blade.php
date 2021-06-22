@@ -11,23 +11,23 @@
 
 @section('main')
 
-    <form
-        method="post"
+    <form 
+        method="post" 
         action="{{ Route::currentRouteName() === 'posts.edit' ? route('posts.update', $post->id) : route('posts.store') }}">
 
         @if(Route::currentRouteName() === 'posts.edit')
             @method('PUT')
         @endif
-
+        
         @csrf
 
         <div class="row">
             <div class="col-md-8">
-
+                
                 <x-back.validation-errors :errors="$errors" />
 
                 @if(session('ok'))
-                    <x-back.alert
+                    <x-back.alert 
                         type='success'
                         title="{!! session('ok') !!}">
                     </x-back.alert>
@@ -132,15 +132,15 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <a id="lfm" data-input="image" data-preview="holder" class="btn btn-primary text-white" class="btn btn-outline-secondary" type="button">Button</a>
-                        </div>
-                        <input id="image" class="form-control {{ $errors->has('image') ? 'is-invalid' : '' }}" type="text" name="image" value="{{ old('image', isset($post) ? getImage($post) : '') }}" required>
-                        @if ($errors->has('image'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('image') }}
-                            </div>
-                        @endif
+                      <div class="input-group-prepend">
+                        <a id="lfm" data-input="image" data-preview="holder" class="btn btn-primary text-white" class="btn btn-outline-secondary" type="button">Button</a>
+                      </div>
+                      <input id="image" class="form-control {{ $errors->has('image') ? 'is-invalid' : '' }}" type="text" name="image" value="{{ old('image', isset($post) ? getImage($post) : '') }}" required>                    
+                      @if ($errors->has('image'))
+                          <div class="invalid-feedback">
+                              {{ $errors->first('image') }}
+                          </div>
+                      @endif
                     </div>
 
 
@@ -186,3 +186,4 @@
     @include('back.shared.editorScript')
 
 @endsection
+

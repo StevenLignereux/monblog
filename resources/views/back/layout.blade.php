@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
   <!-- Theme style -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.0.5/css/adminlte.min.css" />
-    @yield('css')
+  @yield('css')
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -19,7 +19,7 @@
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
+    <ul class="navbar-nav">      
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
@@ -28,7 +28,7 @@
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <form action="{{ route('logout') }}" method="POST" hidden>
-          @csrf
+          @csrf                                
         </form>
         <a class="nav-link"
             href="{{ route('logout') }}"
@@ -64,8 +64,8 @@
                           <ul class="nav nav-treeview">
                               @foreach($elements['children'] as $child)
                                   @if(($child['role'] === 'redac' || auth()->user()->isAdmin()) && $child['name'] !== 'fake')
-                                      <x-back.menu-item
-                                          :route="$child['route']"
+                                      <x-back.menu-item 
+                                          :route="$child['route']" 
                                           :sub=true>
                                           @lang($child['name'])
                                       </x-back.menu-item>
@@ -74,8 +74,8 @@
                           </ul>
                       </li>
                   @else
-                      <x-back.menu-item
-                          :route="$elements['route']"
+                      <x-back.menu-item 
+                          :route="$elements['route']" 
                           :icon="$elements['icon']">
                           @lang($name)
                       </x-back.menu-item>

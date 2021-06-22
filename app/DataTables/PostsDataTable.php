@@ -3,8 +3,6 @@
 namespace App\DataTables;
 
 use App\Models\Post;
-use Yajra\DataTables\DataTableAbstract;
-use Yajra\DataTables\Html\Builder;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +15,7 @@ class PostsDataTable extends DataTable
      * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
-     * @return DataTableAbstract
+     * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
     {
@@ -35,45 +33,45 @@ class PostsDataTable extends DataTable
             ->editColumn('action', function ($post) {
 
                 $buttons = $this->button(
-                    'posts.display',
-                    $post->slug,
-                    'success',
-                    __('Show'),
-                    'eye',
-                    '',
-                    '_blank'
-                );
+                              'posts.display', 
+                              $post->slug, 
+                              'success', 
+                              __('Show'), 
+                              'eye', 
+                              '',
+                              '_blank'
+                          );
 
                 if(Route::currentRouteName() === 'posts.indexnew') {
                     return $buttons;
                 }
 
                 $buttons .= $this->button(
-                    'posts.edit',
-                    $post->id,
-                    'warning',
-                    __('Edit'),
+                    'posts.edit', 
+                    $post->id, 
+                    'warning', 
+                    __('Edit'), 
                     'edit'
                 );
 
                 if($post->user_id === auth()->id()) {
                     $buttons .= $this->button(
-                        'posts.create',
-                        $post->id,
-                        'info',
-                        __('Clone'),
+                        'posts.create', 
+                        $post->id, 
+                        'info', 
+                        __('Clone'), 
                         'clone'
                     );
                 }
-
+                
                 return $buttons . $this->button(
-                        'posts.destroy',
-                        $post->id,
-                        'danger',
-                        __('Delete'),
-                        'trash-alt',
-                        __('Really delete this post?')
-                    );
+                          'posts.destroy', 
+                          $post->id, 
+                          'danger', 
+                          __('Delete'), 
+                          'trash-alt', 
+                          __('Really delete this post?')
+                      );
             })
             ->rawColumns(['categories', 'comments_count', 'action', 'created_at']);
     }
@@ -81,7 +79,7 @@ class PostsDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param Post $post
+     * @param \App\Models\Post $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Post $post)
@@ -93,32 +91,32 @@ class PostsDataTable extends DataTable
         }
 
         return $query->select(
-            'posts.id',
-            'slug',
-            'title',
-            'active',
-            'posts.created_at',
-            'posts.updated_at',
-            'user_id')
-            ->with(
-                'user:id,name',
-                'categories:title')
-            ->withCount('comments');
+                      'posts.id',
+                      'slug',
+                      'title',
+                      'active',
+                      'posts.created_at',
+                      'posts.updated_at',
+                      'user_id')
+                    ->with(
+                      'user:id,name',
+                      'categories:title')
+                    ->withCount('comments');
     }
 
     /**
      * Optional method if you want to use html builder.
      *
-     * @return Builder
+     * @return \Yajra\DataTables\Html\Builder
      */
     public function html()
     {
         return $this->builder()
-            ->setTableId('posts-table')
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->dom('Blfrtip')
-            ->lengthMenu();
+                    ->setTableId('posts-table')
+                    ->columns($this->getColumns())
+                    ->minifiedAjax()
+                    ->dom('Blfrtip')
+                    ->lengthMenu();
     }
 
     /**
@@ -131,9 +129,9 @@ class PostsDataTable extends DataTable
         $columns = [
             Column::make('title')->title(__('Title'))
         ];
-
+      
         if(auth()->user()->role === 'admin') {
-            array_push($columns,
+            array_push($columns, 
                 Column::make('user.name')->title(__('Author'))
             );
         }
@@ -162,7 +160,7 @@ class PostsDataTable extends DataTable
     /**
      * Get zone date.
      *
-     * @param Post $post
+     * @param \App\Models\Post $post
      * @return string
      */
     protected function getDate($post)
@@ -182,7 +180,7 @@ class PostsDataTable extends DataTable
     /**
      * Get categories.
      *
-     * @param Post $post
+     * @param \App\Models\Post $post
      * @return string
      */
     protected function getCategories($post)
