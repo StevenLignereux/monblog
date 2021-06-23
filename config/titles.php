@@ -32,4 +32,13 @@ return [
         'indexnew' => 'New Comments',
         'edit' => 'Comment Edit'
     ],
+    'contacts' => [
+      'index' => 'Contacts',
+      'indexnew' => 'New Contacts',
+    ],
+    'follows' => [
+        'index'  => 'Follows',
+        'create' => 'Follow Creation',
+        'edit'   => 'Follow Edit',
+    ],
 ];

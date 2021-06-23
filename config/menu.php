@@ -96,4 +96,41 @@ return [
             ],
         ],
     ],
+    'Contacts' => [
+        'icon' => 'envelope',
+        'role'   => 'admin',
+        'children' => [
+            [
+                'name'  => 'All contacts',
+                'role'  => 'admin',
+                'route' => 'contacts.index',
+            ],
+            [
+                'name'  => 'New contacts',
+                'role'  => 'admin',
+                'route' => 'contacts.indexnew',
+            ],
+        ],
+    ],
+    'Follows' => [
+        'icon' => 'share-alt',
+        'role'   => 'admin',
+        'children' => [
+            [
+                'name'  => 'All follows',
+                'role'  => 'admin',
+                'route' => 'follows.index',
+            ],
+            [
+                'name'  => 'Add',
+                'role'  => 'admin',
+                'route' => 'follows.create',
+            ],
+            [
+                'name'  => 'fake',
+                'role'  => 'admin',
+                'route' => 'follows.edit',
+            ],
+        ],
+    ],
 ];
