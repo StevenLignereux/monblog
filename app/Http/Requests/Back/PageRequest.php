@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Back;
 
+use App\Rules\Slug;
 use Illuminate\Foundation\Http\FormRequest;
 
-class FollowRequest extends FormRequest
+class PageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +24,12 @@ class FollowRequest extends FormRequest
      */
     public function rules()
     {
+        $id = basename($this->url());
+
         return $rules = [
             'title' => 'required|max:255',
-            'href' => 'required|url|max:255',
+            'body' => 'required|max:65000',
+            'slug' => ['required', 'max:255', new Slug, 'unique:posts,slug,' . $id],
         ];
     }
 }

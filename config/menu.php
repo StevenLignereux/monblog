@@ -133,4 +133,25 @@ return [
             ],
         ],
     ],
+    'Pages' => [
+        'icon' => 'file',
+        'role'   => 'admin',
+        'children' => [
+            [
+                'name'  => 'All pages',
+                'role'  => 'admin',
+                'route' => 'pages.index',
+            ],
+            [
+                'name'  => 'Add',
+                'role'  => 'admin',
+                'route' => 'pages.create',
+            ],
+            [
+                'name'  => 'fake',
+                'role'  => 'admin',
+                'route' => 'pages.edit',
+            ],
+        ],
+    ],
 ];

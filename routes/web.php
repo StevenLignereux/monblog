@@ -88,5 +88,8 @@ Route::prefix('admin')->group(function () {
 
         // Follows
         Route::resource('follows', BackResourceController::class)->except(['show']);
+
+        // Pages
+        Route::resource('pages', BackResourceController::class)->except(['show']);
     });
 });
