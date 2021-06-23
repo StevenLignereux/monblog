@@ -54,7 +54,7 @@ require __DIR__.'/auth.php';
 Route::prefix('admin')->group(function () {
 
     Route::middleware('redac')->group(function () {
-  
+
         // Dashboard
         Route::name('admin')->get('/', [AdminController::class, 'index']);
         // Purge
@@ -62,10 +62,18 @@ Route::prefix('admin')->group(function () {
         // Posts
         Route::resource('posts', BackPostController::class)->except(['show', 'create']);
         Route::name('posts.create')->get('posts/create/{id?}', [BackPostController::class, 'create']);
+
+        // Users
+        Route::name('users.valid')->put('valid/{user}', [BackUserController::class, 'valid']);
+        Route::name('users.unvalid')->put('unvalid/{user}', [BackUserController::class, 'unvalid']);
+
+        // Comments
+        Route::resource('comments', BackResourceController::class)->except(['show', 'create', 'store']);
+        Route::name('comments.indexnew')->get('newcomments', [BackResourceController::class, 'index']);
     });
 
     Route::middleware('admin')->group(function () {
-        
+
         // Posts
         Route::name('posts.indexnew')->get('newposts', [BackPostController::class, 'index']);
         // Categories

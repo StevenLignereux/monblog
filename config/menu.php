@@ -3,75 +3,96 @@
 return [
 
     'Dashboard' => [
-        'role'   => 'redac',
-        'route'  => 'admin',
-        'icon'   => 'tachometer-alt',
+        'role' => 'redac',
+        'route' => 'admin',
+        'icon' => 'tachometer-alt',
     ],
     'Posts' => [
         'icon' => 'file-alt',
-        'role'   => 'redac',
+        'role' => 'redac',
         'children' => [
             [
-                'name'  => 'All posts',
-                'role'  => 'redac',
+                'name' => 'All posts',
+                'role' => 'redac',
                 'route' => 'posts.index',
             ],
             [
-                'name'  => 'New posts',
-                'role'  => 'admin',
+                'name' => 'New posts',
+                'role' => 'admin',
                 'route' => 'posts.indexnew',
             ],
             [
-                'name'  => 'Add',
-                'role'  => 'redac',
+                'name' => 'Add',
+                'role' => 'redac',
                 'route' => 'posts.create',
             ],
             [
-                'name'  => 'fake',
-                'role'  => 'redac',
+                'name' => 'fake',
+                'role' => 'redac',
                 'route' => 'posts.edit',
             ],
         ],
     ],
     'Categories' => [
         'icon' => 'list',
-        'role'   => 'admin',
+        'role' => 'admin',
         'children' => [
             [
-                'name'  => 'All categories',
-                'role'  => 'admin',
+                'name' => 'All categories',
+                'role' => 'admin',
                 'route' => 'categories.index',
             ],
             [
-                'name'  => 'Add',
-                'role'  => 'admin',
+                'name' => 'Add',
+                'role' => 'admin',
                 'route' => 'categories.create',
             ],
             [
-                'name'  => 'fake',
-                'role'  => 'admin',
+                'name' => 'fake',
+                'role' => 'admin',
                 'route' => 'categories.edit',
             ],
         ],
     ],
     'Users' => [
         'icon' => 'user',
-        'role'   => 'admin',
+        'role' => 'admin',
         'children' => [
             [
-                'name'  => 'All users',
-                'role'  => 'admin',
+                'name' => 'All users',
+                'role' => 'admin',
                 'route' => 'users.index',
             ],
             [
-                'name'  => 'New users',
-                'role'  => 'admin',
+                'name' => 'New users',
+                'role' => 'admin',
                 'route' => 'users.indexnew',
             ],
             [
-                'name'  => 'fake',
-                'role'  => 'admin',
+                'name' => 'fake',
+                'role' => 'admin',
                 'route' => 'users.edit',
+            ],
+        ],
+    ],
+    'Comments' => [
+        'icon' => 'comment',
+        'role' => 'redac',
+        'children' => [
+            [
+                'name' => 'All comments',
+                'role' => 'redac',
+                'route' => 'comments.index',
+            ],
+            [
+                'name' => 'New comments',
+                'role' => 'redac',
+                'route' => 'comments.indexnew',
+            ],
+            [
+                'name' => 'fake',
+                'role' => 'redac',
+                'route' => 'comments.edit',
             ],
         ],
     ],
