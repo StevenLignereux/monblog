@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 use App\Http\Controllers\Front\{
@@ -15,13 +14,14 @@ use App\Http\Controllers\Back\{
     ResourceController as BackResourceController,
     UserController as BackUserController,
 };
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => 'auth'], function () {
     Lfm::routes();
 });
 
 // Profile
-Route::middleware('auth')->group(function (){
+Route::middleware(['auth', 'password.confirm'])->group(function () {
     Route::view('profile', 'auth.profile');
     Route::name('profile')->put('profile', [RegisteredUserController::class, 'update']);
 });
@@ -50,7 +50,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-
+//Route::view('admin', 'back.layout');
 
 /*
 |--------------------------------------------------------------------------
@@ -69,11 +69,9 @@ Route::prefix('admin')->group(function () {
         // Posts
         Route::resource('posts', BackPostController::class)->except(['show', 'create']);
         Route::name('posts.create')->get('posts/create/{id?}', [BackPostController::class, 'create']);
-
         // Users
         Route::name('users.valid')->put('valid/{user}', [BackUserController::class, 'valid']);
         Route::name('users.unvalid')->put('unvalid/{user}', [BackUserController::class, 'unvalid']);
-
         // Comments
         Route::resource('comments', BackResourceController::class)->except(['show', 'create', 'store']);
         Route::name('comments.indexnew')->get('newcomments', [BackResourceController::class, 'index']);
@@ -88,14 +86,11 @@ Route::prefix('admin')->group(function () {
         // Users
         Route::resource('users', BackUserController::class)->except(['show', 'create', 'store']);
         Route::name('users.indexnew')->get('newusers', [BackResourceController::class, 'index']);
-
         // Contacts
         Route::resource('contacts', BackResourceController::class)->only(['index', 'destroy']);
         Route::name('contacts.indexnew')->get('newcontacts', [BackResourceController::class, 'index']);
-
         // Follows
         Route::resource('follows', BackResourceController::class)->except(['show']);
-
         // Pages
         Route::resource('pages', BackResourceController::class)->except(['show']);
     });
