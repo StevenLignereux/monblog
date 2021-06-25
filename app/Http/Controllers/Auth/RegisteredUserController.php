@@ -49,6 +49,17 @@ class RegisteredUserController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Request $request)
+    {
+        $request->user()->delete();
+
+        return response()->json();
+    }
+
+    /**
      * Handle an incoming registration request.
      *
      * @param \Illuminate\Http\Request $request
