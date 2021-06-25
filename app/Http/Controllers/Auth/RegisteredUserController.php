@@ -23,9 +23,35 @@ class RegisteredUserController extends Controller
     }
 
     /**
+     * Update password
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request)
+    {
+        $values = $request->only(['name', 'email']);
+
+        $rules = [
+            'name' => 'required|max:255|unique:users,name,' . $request->user()->id,
+            'email' => 'required|email|max:255|unique:users,email,' . $request->user()->id,
+        ];
+
+        if ($request->password) {
+            $rules['password'] = 'string|confirmed|min:8';
+            $values['password'] = Hash::make($request->password);
+        }
+
+        $request->validate($rules);
+
+        $request->user()->update($values);
+
+        return back()->with('status', __('You have been successfully update.'));
+    }
+
+    /**
      * Handle an incoming registration request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      *
      * @throws \Illuminate\Validation\ValidationException

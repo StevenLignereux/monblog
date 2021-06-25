@@ -117,6 +117,7 @@
     "of": "de",
     "Oh no": "Oh non",
     "On": "Le",
+    "optional": "optionnel",
     "Page Creation": "Kréation d'une page",
     "Page Edit": "ModifiKation d'une page",
     "Page Expired": "Erreur 419, session expiré",
@@ -250,5 +251,8 @@
     "Your message has been recorded, we will respond as soon as possible.": "Votre message a bien été enregistré. Nous vous répondrons dès Ke possible.",
     "Your name": "Votre nom",
     "Your password": "Votre mot de passe",
-    "Your email address is not verified.": "Votre adresse mail n'a pas été vérifiée."
+    "Your email address is not verified.": "Votre adresse mail n'a pas été vérifiée.",
+    "You have been successfully updated": "Vos modifications ont bien été enregistrées",
+    "Your Password": "Votre mot de passe",
+    "Your Password if you want to change it": "Votre mot de passe si vous désirez le changer"
 }

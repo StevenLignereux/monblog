@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 use App\Http\Controllers\Front\{
@@ -17,6 +18,12 @@ use App\Http\Controllers\Back\{
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => 'auth'], function () {
     Lfm::routes();
+});
+
+// Profile
+Route::middleware('auth')->group(function (){
+    Route::view('profile', 'auth.profile');
+    Route::name('profile')->put('profile', [RegisteredUserController::class, 'update']);
 });
 
 // Home
@@ -43,7 +50,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-//Route::view('admin', 'back.layout');
+
 
 /*
 |--------------------------------------------------------------------------
