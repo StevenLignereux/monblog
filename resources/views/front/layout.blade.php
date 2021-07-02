@@ -19,21 +19,21 @@
 
     <!-- CSS
     ================================================== -->
-    <link rel="stylesheet" href="{{ asset('css/vendor.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/vendor.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/styles.css') }}">
 @yield('style')
 
 <!-- script
     ================================================== -->
-    <script src="{{ asset('js/modernizr.js') }}"></script>
-    <script defer src="{{ asset('js/fontawesome/all.min.js') }}"></script>
+    <script src="{{ secure_asset('js/modernizr.js') }}"></script>
+    <script defer src="{{ secure_asset('js/fontawesome/all.min.js') }}"></script>
 
     <!-- favicons
     ================================================== -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
-    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ secure_asset('apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ secure_asset('favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ secure_asset('favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ secure_asset('site.webmanifest') }}">
 
 </head>
 
