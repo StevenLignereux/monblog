@@ -48,6 +48,6 @@
         })
     });
 
-    CKEDITOR.replace('body', { customConfig: '{{ secure_asset('js/ckeditor.js') }}' });
+    CKEDITOR.replace('body', { customConfig: '{{ asset('js/ckeditor.js') }}' });
 
 </script>
